@@ -1,15 +1,17 @@
-# Thesis
+# Using a Novel Unbiased Dataset and Deep Learning Model to Predict Protein-Protein Interactions
+Proteins are indispensable to the living organisms, forming the backbone of almost all the cellular processes. However, these macromolecules rarely act alone, integrating the Protein-Protein Interaction (PPI). It should come as no surprise that their deregulation is one of the main causes to several disease states. The sudden surge of interest in this field of study motivated the development of innovative in silico methods. Nonetheless the obvious advances in recent years, the effectiveness of these computational methods remains questionable. There still are not enough evidences that support the use of just in silico techniques to predict PPIs not yet experimentally determined. It is proved that one of the primary reasons leading to this situation is the non-existence of a "gold-standard" negative interactions dataset. Contrary to the high abundance of publicly available positive interactions, the negative examples are often artificially generated, culminating in biased samples. In this paper we propose a new unbiased technique to create negative examples, that does not overly constraint the negative interactions distribution. Beyond the novel dataset creation task we also established a Deep Learning (DL) model as a tool to predict whether two individual proteins are capable of interacting with each other, using exclusively the complete raw amino acid sequences. The obtained results firmly indicate that the proposed model is a valuable tool to predict PPIs, while also highlighting that there is still some room for improvement when implemented in unbiased datasets.
 
-## Work of the last few weeks
-### **Dataset:** 
-Ultimamente tenho-me focado em dois datasets diferentes:
-- **Dataset1**: de um benchmark, (http://www.csbio.sjtu.edu.cn/bioinf/LR_PPI/Data.htm).
-- **Dataset2**: criado por mim, com recurso ao BioGrid para obter as interações positivas, onde duas proteínas interagem. Quanto às interações negativas, foram criadas por combinações aleatórias de duas proteínas, caso esse par não exista em todas as interações positivas consideradas.
+## **Datasets** 
+- **Independent dataset**: All the human multi-validated physical positive PPIs available in BioGRID were selected. For the negative interactions it was necessary to identify the unique proteins from the multi-validated positive interactions and put them in the set S of proteins. Afterwards, two distinct proteins were randomly sampled from S. Finally, the pair sampled was compared with the multi-validated and not multi-validated positive interactions and if it was not already labeled as one of them, then it was considered a new negative interaction.
 
-![negative](https://user-images.githubusercontent.com/58522514/78459150-f7ae3e00-76ae-11ea-87e7-6fbd41c81a53.PNG)
 
-### **Feature encoding:**
-Quanto ao feature encoding, mantive a abordagem já usada, eliminei interações onde pelo menos uma das proteínas tivesse uma sequência excessivamente grande (existiam casos de proteínas com cerca de 30000 aminoácidos). Posteriormente, a cada proteína apliquei one-hot tendo em conta a existência dos tais 21 aminoácidos, obtendo assim matrizes de 21xN. Optei pela representação dos 21 aminoácidos uma vez que verifiquei que não agrupar estes mesmos em grupos de 7, consoantes as suas propriedades físico-químicas, permite obter melhores resultados.
+
+- **Pan et al. dataset**: exclusively composed byhuman PPIs, whose positive interactions were obtained from the Human Protein References Databaseeradas. Afterwards the negative interactions were computationally generatedby the non co-localization method, where two randomly paired proteins found on distinct sub-cellular compartments are considered as non-interacting
+- **Du et al. dataset**: A saccharomyces cerevisiae PPIs dataset was gathered from the Database of Interacting Proteins. The selection of negative interactions was also by the
+non co-localization method
+
+
+
 
 ### **Network architecture:** 
 Ultimamente foquei-me apenas numa arquitectura, a mais convencional, que foi aquela que para os testes anteriores tinha apresentado melhores resultados.
